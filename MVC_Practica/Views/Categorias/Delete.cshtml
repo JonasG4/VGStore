@@ -1,0 +1,26 @@
+﻿@model MVC_Practica.Models.Categorias
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<form asp-action="DeletePost" method="post">
+    <input type="hidden" asp-for="Id" />
+    <div class="border p-5">
+        <div class="form-group row">
+            <h3 class="text-info pl-2">Borrar Categoria</h3>
+        </div>
+        <div class="col-12 row">
+            <div class="form-group row mr-2 col-6">
+                <label asp-for="Nombre">Nombre</label>
+                <input type="text" asp-for="Nombre" class="form-control" disabled />
+            </div>
+            <div class="form-group row mr-2 col-6">
+                <label asp-for="Orden">Orden</label>
+                <input type="Number" asp-for="Orden" class="form-control" disabled />
+            </div>
+    </div>
+    <button type="submit" class="btn btn-warning">Borrar</button>
+    <a asp-action="Index" class="btn btn-danger">Cancelar</a>
+        </div>
+</form>
+

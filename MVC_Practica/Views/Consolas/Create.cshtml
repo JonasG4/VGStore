@@ -1,0 +1,30 @@
+﻿@model MVC_Practica.Models.Consolas
+@{
+    ViewData["Title"] = "Create";
+}
+
+<form asp-action="Create" method="post">
+    <h2 class="text-primary">Crear registro</h2><br />
+    <div class="form-group">
+            <label for="Nombre">Nombre</label>
+            <input type="text" class="form-control" asp-for="Nombre" id="Nombre" placeholder="Escriba el nombre de la consola...">
+            <span class="text-danger" asp-validation-for="Nombre"></span>
+    </div>
+        <div class="form-group">
+            <label for="Descripcion">Descripcion</label>
+            <textarea class="form-control summernote" asp-for="Descripcion" id="Descripcion" rows="2"
+             placeholder="Escriba una descripcion..."></textarea>
+            <span class="text-danger" asp-validation-for="Descripcion"></span>
+        </div>
+        <button type="submit" class="btn btn-info">Guardar</button>
+        <a class="btn btn-danger" asp-action="Index">Cancelar</a>
+</form>
+
+@section Scripts{ 
+
+    <script>
+        $(document).ready(function () {
+            $('.summernote').summernote();
+        });
+    </script>
+}

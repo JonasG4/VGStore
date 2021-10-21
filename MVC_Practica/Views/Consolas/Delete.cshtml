@@ -1,0 +1,22 @@
+﻿@model MVC_Practica.Models.Consolas
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<form asp-action="DeletePost" method="post">
+    <input type="hidden" name="IdConsola" asp-for="IdConsola" />
+    <h2 class="text-primary">Borrar registro</h2><br />
+    <div class="form-group">
+        <label for="Nombre">Nombre</label>
+        <input type="text" class="form-control" asp-for="Nombre" id="Nombre" disabled>
+    </div>
+    <div class="form-group">
+        <label for="Descripcion">Descripcion</label>
+        <textarea class="form-control" asp-for="Descripcion" id="Descripcion" rows="2"
+                  disabled></textarea>
+    </div>
+    <button type="submit" class="btn btn-warning">Borrar</button>
+    <a  class="btn btn-danger" asp-action="Index">Cancelar</a>
+</form>
+
+

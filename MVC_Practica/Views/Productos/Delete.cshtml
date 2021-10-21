@@ -1,0 +1,76 @@
+﻿@model MVC_Practica.Models.Productos
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>Delete</h1>
+<form method="post" asp-action="DeletePost">
+        <input hidden asp-for="IdProducto" />
+    <h2 class="text-primary">Borrar Producto</h2><br />
+    <div class="row">
+        <div class="col-8">
+            <div class="form-group">
+                <label for="Nombre">Nombre</label>
+                <input type="text" class="form-control" asp-for="Nombre" id="Nombre" disabled>
+                <span class="text-danger" asp-validation-for="Nombre"></span>
+            </div>
+            <div class="form-group">
+                <label for="Precio">Precio</label>
+                <input type="text" class="form-control" asp-for="Precio" id="Precio" disabled>
+                <span class="text-danger" asp-validation-for="Precio"></span>
+            </div>
+            <div class="form-group">
+                <label for="DescripcionCorta">Descripcion Corta</label>
+                <input type="text" class="form-control" asp-for="DescripcionCorta" id="DescripcionCorta" disabled
+                       placeholder="Escriba una descripcion corta..." />
+                <span class="text-danger" asp-validation-for="DescripcionCorta"></span>
+            </div>
+            <div class="form-group">
+                <label for="Descripcion">Descripcion</label>
+                <textarea class="form-control summernote" asp-for="Descripcion" id="Descripcion" rows="2" disabled
+                          placeholder="Escriba una descripcion..."></textarea>
+                <span class="text-danger" asp-validation-for="Descripcion"></span>
+            </div>
+            <div class="form-group">
+                <label for="Categoria">Categoria</label>
+                <input type="text" class="form-control" asp-for="Categorias.Nombre" id="Categoria" disabled>
+                <span class="text-danger" asp-validation-for="IdCategoria"></span>
+            </div>
+            <div class="form-group">
+                <label for="Consola">Consola</label>
+                <input type="text" class="form-control" asp-for="Consolas.Nombre" id="Categoria" disabled>
+                <span class="text-danger" asp-validation-for="IdConsola"></span>
+            </div>
+            <button type="submit" onclick="return validateInput()" class="btn btn-warning">Eliminar</button>
+            <a class="btn btn-danger" asp-action="Index">Cancelar</a>
+        </div>
+        <div class="col-4">
+                <img src="@WC.ProductosPath@Model.Imagen" alt="Imagen del producto" style="width: 100%; border: 1px solid #bbb; border-radius: 5px;" />
+        </div>
+    </div>
+</form>
+
+@section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+
+    <script>
+        function validateInput() {
+            if (document.getElementById("uploadBox").value == "") {
+                Swal.fire(
+                    ' Error!',
+                    'Por favor, subir una imagen!',
+                    'error'
+                )
+            }
+        }
+    </script>
+
+
+    <script>
+        $(document).ready(function () {
+            $('.summernote').summernote('disable');
+        });
+    </script>
+}

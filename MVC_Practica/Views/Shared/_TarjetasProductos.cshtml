@@ -1,0 +1,26 @@
+﻿@model MVC_Practica.Models.Productos
+
+    <div class="col-lg-4 col-md-6 pb-4 filter @Model.Consolas.Nombre.Replace(' ', '_')">
+        <div class="card rounded" style="border: 1px solid rgba(24,24,24,0.2); box-shadow: 12px 20px 15px rgba(24,24,24,0.08); background-color: rgba(128, 128, 128, 0.09);">
+            <div class="card-body px-3 row" style="height: 70px">
+                <div class="col-7"><label class="float-left font-weight-bold">@Model.Nombre</label></div>
+                <div class="col-5"><label class="float-right"><span class="text-info h5">@string.Format("{0:c0}", @Model.Precio)</span></label></div>
+            </div>
+            <hr />
+            <img class="card-img-top img-fluid d-block mx-auto mb-3" src="@WC.ProductosPath@Model.Imagen" alt="Alternate Text" style="height: 250px; width:auto" />  
+            <div class="card-body p-1 px-3 row">
+                <div class="col-6">
+                    <span class="badge p-2 border w-100" style="background-color: gold">@Model.Consolas.Nombre</span>
+                </div>
+                <div class="col-6">
+                    <span class="badge p-2 border w-100 text-light" style="background-color: forestgreen">@Model.Categorias.Nombre</span>
+                </div>
+                <div class="col-12" style="font-size: 13px; text-align: justify; height: 150px; padding-top: 10px; overflow: hidden">
+                    <p>@Model.DescripcionCorta</p>
+                </div>
+                <div class="col-12 p-1">
+                    <a asp-action="Detalles" asp-route-id="@Model.IdProducto" class="btn btn-dark form-control btn-sm p-2">Ver detalles</a>
+                </div>
+            </div>
+        </div>
+    </div>

@@ -1,0 +1,100 @@
+﻿@model MVC_Practica.Models.ViewModels.ProductosVM
+
+@{
+    ViewData["Title"] = "Upsert";
+    var title = "Crear producto";
+}
+
+<form method="post" enctype="multipart/form-data">
+    @if (Model.Productos.IdProducto != 0)
+    {
+        title = "Editar producto";
+        <input hidden asp-for="Productos.IdProducto" />
+    }
+    <h2 class="text-primary">@title</h2><br />
+    <div class="row">
+        <div class="col-8">
+            <div class="form-group">
+                <label for="Nombre">Nombre</label>
+                <input type="text" class="form-control" asp-for="Productos.Nombre" id="Nombre" placeholder="Escriba el nombre del producto...">
+                <span class="text-danger" asp-validation-for="Productos.Nombre"></span>
+            </div>
+            <div class="form-group">
+                <label for="Precio">Precio</label>
+                <input type="text" class="form-control" asp-for="Productos.Precio" id="Precio" placeholder="Escriba el precio del producto...">
+                <span class="text-danger" asp-validation-for="Productos.Precio"></span>
+            </div>
+            <div class="form-group">
+                <label for="DescripcionCorta">Descripcion Corta</label>
+                <input type="text" class="form-control" asp-for="Productos.DescripcionCorta" id="DescripcionCorta"
+                          placeholder="Escriba una descripcion corta..." />
+                <span class="text-danger" asp-validation-for="Productos.DescripcionCorta"></span>
+            </div>
+            <div class="form-group">
+                <label for="Descripcion">Descripcion</label>
+                <textarea class="form-control summernote" asp-for="Productos.Descripcion" id="Descripcion" rows="2"
+                          placeholder="Escriba una descripcion..."></textarea>
+                <span class="text-danger" asp-validation-for="Productos.Descripcion"></span>
+            </div>
+            <div class="form-group">
+                <label for="Imagen">Imgen del producto</label>
+                <input type="file" class="form-control-file" name="files" id="uploadBox" accept="image/*">
+            </div>
+            <div class="form-group">
+                <label for="Categoria">Categoria</label>
+                <select class="form-control" asp-for="Productos.IdCategoria" asp-items="@Model.CategoriasSelectList">
+                    <option value="value" selected disabled>Seleccione categoria...</option>
+                </select>
+                <span class="text-danger" asp-validation-for="Productos.IdCategoria"></span>
+            </div>
+            <div class="form-group">
+                <label for="Consola">Consola</label>
+                <select class="form-control" asp-for="Productos.IdConsola" asp-items="@Model.ConsolasSelectList">
+                    <option value="value" selected disabled>Seleccione categoria...</option>
+                </select>
+                <span class="text-danger" asp-validation-for="Productos.IdConsola"></span>
+            </div>
+            @if (Model.Productos.IdProducto != 0)
+            {
+                <button type="submit" class="btn btn-info">Editar</button>
+            }
+            else
+            {
+                <button type="submit" onclick="return validateInput()" class="btn btn-primary">Crear</button>
+            }
+
+            <a class="btn btn-danger" asp-action="Index">Cancelar</a>
+        </div>
+        <div class="col-4">
+            @if (Model.Productos.IdProducto != 0)
+            {
+                <img src="@WC.ProductosPath@Model.Productos.Imagen" alt="Imagen del producto" style="width: 100%; border: 1px solid #bbb; border-radius: 5px;" />
+            }
+        </div>
+    </div>
+</form>
+
+@section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+
+    <script>
+        function validateInput() {
+            if (document.getElementById("uploadBox").value == "") {
+                Swal.fire(
+                    ' Error!',
+                    'Por favor, subir una imagen!',
+                    'error'
+                )
+            }
+        }
+    </script>
+
+
+    <script>
+        $(document).ready(function () {
+            $('.summernote').summernote();
+        });
+    </script>
+}
