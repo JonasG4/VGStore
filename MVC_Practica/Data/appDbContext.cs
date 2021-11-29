@@ -17,5 +17,6 @@ namespace MVC_Practica.Data
         public DbSet<Categorias> Categorias { get; set; }
         public DbSet<Consolas> Consolas { get; set; }
         public DbSet<Productos> Productos { get; set; }
+        public DbSet<Tipo> Tipo { get; set; }
     }
 }

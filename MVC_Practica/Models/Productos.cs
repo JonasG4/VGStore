@@ -32,5 +32,13 @@ namespace MVC_Practica.Models
         public int IdConsola { get; set; }
         [ForeignKey("IdConsola")]
         public virtual Consolas Consolas  { get; set; }
+
+
+
+        //Relacion con la tabla producto
+        [Display(Name = "Tipo")]
+        public int IdTipo { get; set; }
+        [ForeignKey("IdTipo")]
+        public virtual Tipo Tipo { get; set; }
     }
 }

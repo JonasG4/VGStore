@@ -32,6 +32,7 @@ namespace MVC_Practica.Controllers
             {
                 obj.Categorias = _db.Categorias.FirstOrDefault(u => u.Id == obj.IdCategoria);
                 obj.Consolas = _db.Consolas.FirstOrDefault(u => u.IdConsola == obj.IdConsola);
+                obj.Tipo= _db.Tipo.FirstOrDefault(u => u.IdTipo == obj.IdTipo);
             }
 
             return View(objlist);
@@ -47,9 +48,13 @@ namespace MVC_Practica.Controllers
                     Text = i.Nombre,
                     Value = i.Id.ToString()           
             }),
-             ConsolasSelectList = _db.Consolas.Select(i => new SelectListItem {
+                ConsolasSelectList = _db.Consolas.Select(i => new SelectListItem {
                     Text = i.Nombre,
                     Value = i.IdConsola.ToString()           
+            }),
+                TipoSelectList = _db.Tipo.Select(i => new SelectListItem {
+                    Text = i.Nombre,
+                    Value = i.IdTipo.ToString()           
             }),
 
             };
@@ -140,10 +145,16 @@ namespace MVC_Practica.Controllers
                         Text = i.Nombre,
                         Value = i.Id.ToString()
                     });
-                productosVM.ConsolasSelectList = _db.Consolas.Select(i => new SelectListItem
+                     productosVM.ConsolasSelectList = _db.Consolas.Select(i => new SelectListItem
                     {
                         Text = i.Nombre,
                         Value = i.IdConsola.ToString()
+                    });
+                    
+                    productosVM.TipoSelectList = _db.Tipo.Select(i => new SelectListItem
+                    {
+                        Text = i.Nombre,
+                        Value = i.IdTipo.ToString()
                     });
 
                 return RedirectToAction("Index");
@@ -159,7 +170,7 @@ namespace MVC_Practica.Controllers
                 return NotFound();
             }
 
-            Productos producto = _db.Productos.Include(u => u.Categorias).Include(u => u.Consolas).FirstOrDefault(u => u.IdProducto == Id); //eager loading
+            Productos producto = _db.Productos.Include(u => u.Categorias).Include(u => u.Consolas).Include(u => u.Tipo).FirstOrDefault(u => u.IdProducto == Id) ; //eager loading
             if (producto == null)
             {
                 return NotFound();

@@ -3,14 +3,16 @@ using MVC_Practica.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace MVC_Practica.Migrations
 {
     [DbContext(typeof(appDbContext))]
-    partial class appDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211029001148_tbltipo")]
+    partial class tbltipo
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -78,9 +80,6 @@ namespace MVC_Practica.Migrations
                     b.Property<int>("IdConsola")
                         .HasColumnType("int");
 
-                    b.Property<int>("IdTipo")
-                        .HasColumnType("int");
-
                     b.Property<string>("Imagen")
                         .HasColumnType("nvarchar(max)");
 
@@ -96,8 +95,6 @@ namespace MVC_Practica.Migrations
                     b.HasIndex("IdCategoria");
 
                     b.HasIndex("IdConsola");
-
-                    b.HasIndex("IdTipo");
 
                     b.ToTable("Productos");
                 });
@@ -132,17 +129,9 @@ namespace MVC_Practica.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("MVC_Practica.Models.Tipo", "Tipo")
-                        .WithMany()
-                        .HasForeignKey("IdTipo")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Categorias");
 
                     b.Navigation("Consolas");
-
-                    b.Navigation("Tipo");
                 });
 #pragma warning restore 612, 618
         }

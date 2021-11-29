@@ -54,6 +54,17 @@
                 </select>
                 <span class="text-danger" asp-validation-for="Productos.IdConsola"></span>
             </div>
+
+
+            <div class="form-group">
+                <label for="Tipo">Tipo</label>
+                <select class="form-control" asp-for="Productos.IdTipo" asp-items="@Model.TipoSelectList">
+                    <option value="value" selected disabled>Seleccione Tipo...</option>
+                </select>
+                <span class="text-danger" asp-validation-for="Productos.IdTipo"></span>
+            </div>
+            
+            
             @if (Model.Productos.IdProducto != 0)
             {
                 <button type="submit" class="btn btn-info">Editar</button>

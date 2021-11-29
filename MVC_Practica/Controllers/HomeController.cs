@@ -27,8 +27,10 @@ namespace MVC_Practica.Controllers
         {
             HomeVM homeVM = new HomeVM()
             {
-                Productos = _db.Productos.Include(u => u.Categorias).Include(u => u.Consolas),
-                Consolas = _db.Consolas
+                Productos = _db.Productos.Include(u => u.Categorias).Include(u => u.Consolas).Include(u => u.Tipo),
+                Consolas = _db.Consolas,
+                Categorias = _db.Categorias,
+                Tipo = _db.Tipo
             };
             return View(homeVM);
         }

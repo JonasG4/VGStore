@@ -12,6 +12,7 @@ namespace MVC_Practica.Models.ViewModels
         public Productos Productos { get; set; }
         public IEnumerable<SelectListItem> CategoriasSelectList { get; set; }
         public IEnumerable<SelectListItem> ConsolasSelectList { get; set; }
+        public IEnumerable<SelectListItem> TipoSelectList { get; set; }
 
     }
 }

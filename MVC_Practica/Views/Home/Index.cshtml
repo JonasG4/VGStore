@@ -9,7 +9,16 @@
         @foreach (var obj in Model.Consolas)
         {
             <button class="btn btn-outline-primary filter-button" data-filter="@obj.Nombre.Replace(' ','_')">@obj.Nombre</button>
-
+        }
+    <br />  
+        @foreach (var obj in Model.Categorias)
+        {
+            <button class="btn btn-outline-primary filter-button" data-filter="@obj.Nombre.Replace(' ','_')">@obj.Nombre</button>
+        }
+    <br />
+        @foreach (var obj in Model.Tipo)
+        {
+            <button class="btn btn-outline-primary filter-button" data-filter="@obj.Nombre.Replace(' ','_')">@obj.Nombre</button>
         }
     </div>
 </div>
