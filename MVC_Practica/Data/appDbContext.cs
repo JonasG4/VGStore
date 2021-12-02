@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using MVC_Practica.Models;
 using System;
 using System.Collections.Generic;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MVC_Practica.Data
 {
-    public class appDbContext : DbContext
+    public class appDbContext : IdentityDbContext
     {
         public appDbContext(DbContextOptions<appDbContext> options) : base(options)
         {
@@ -17,6 +18,7 @@ namespace MVC_Practica.Data
         public DbSet<Categorias> Categorias { get; set; }
         public DbSet<Consolas> Consolas { get; set; }
         public DbSet<Productos> Productos { get; set; }
+        public DbSet<AppUsuario> AppUsuario { get; set; }
         public DbSet<Tipo> Tipo { get; set; }
     }
 }

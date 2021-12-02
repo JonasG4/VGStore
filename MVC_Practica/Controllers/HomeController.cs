@@ -4,6 +4,7 @@ using Microsoft.Extensions.Logging;
 using MVC_Practica.Data;
 using MVC_Practica.Models;
 using MVC_Practica.Models.ViewModels;
+using MVC_Practica.Utily;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -33,6 +34,66 @@ namespace MVC_Practica.Controllers
                 Tipo = _db.Tipo
             };
             return View(homeVM);
+        }
+
+        public IActionResult Detalles(int id)
+        {
+            List<CarritoCompras> ListaCarrito = new List<CarritoCompras>();
+            if (HttpContext.Session.Get<IEnumerable<CarritoCompras>>(WC.SesionCarrito) != null && HttpContext.Session.Get<IEnumerable<CarritoCompras>>(WC.SesionCarrito).Count() > 0)
+            {
+                ListaCarrito = HttpContext.Session.Get<List<CarritoCompras>>(WC.SesionCarrito);
+            }
+
+            DetallesVM DetallesVM = new DetallesVM()
+            {
+                Producto = _db.Productos.Include(u => u.Categorias).Include(u => u.Consolas).Where(u => u.IdProducto == id).FirstOrDefault(),
+                EnCarrito = false
+            };
+
+            foreach(var item in ListaCarrito)
+            {
+                if(item.ProductoId == id)
+                {
+                    DetallesVM.EnCarrito = true;
+                }
+            }
+
+            return View(DetallesVM);
+        }
+
+        [HttpPost, ActionName("Detalles")]
+        public IActionResult DetallesPost(int id)
+        {
+            List<CarritoCompras> ListaCarrito = new List<CarritoCompras>();
+            if(HttpContext.Session.Get<IEnumerable<CarritoCompras>>(WC.SesionCarrito) != null && HttpContext.Session.Get<IEnumerable<CarritoCompras>>(WC.SesionCarrito).Count() > 0)
+            {
+                ListaCarrito = HttpContext.Session.Get<List<CarritoCompras>>(WC.SesionCarrito);
+            }
+
+            ListaCarrito.Add(new CarritoCompras { ProductoId = id });
+
+            HttpContext.Session.Set(WC.SesionCarrito, ListaCarrito);
+
+            return RedirectToAction(nameof(Index));
+        }
+        public IActionResult RemoverCarrito(int id)
+        {
+            List<CarritoCompras> ListaCarrito = new List<CarritoCompras>();
+            if(HttpContext.Session.Get<IEnumerable<CarritoCompras>>(WC.SesionCarrito) != null && HttpContext.Session.Get<IEnumerable<CarritoCompras>>(WC.SesionCarrito).Count() > 0)
+            {
+                ListaCarrito = HttpContext.Session.Get<List<CarritoCompras>>(WC.SesionCarrito);
+            }
+
+            var itemRemover = ListaCarrito.SingleOrDefault(r => r.ProductoId == id);
+            
+            if(itemRemover != null)
+            {
+                ListaCarrito.Remove(itemRemover);
+            }
+
+            HttpContext.Session.Set(WC.SesionCarrito, ListaCarrito);
+
+            return RedirectToAction(nameof(Index));
         }
 
         public IActionResult Privacy()

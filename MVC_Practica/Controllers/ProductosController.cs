@@ -10,9 +10,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using System.IO;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 namespace MVC_Practica.Controllers
 {
+       [Authorize(Roles = WC.AdminRole)]
     public class ProductosController : Controller
     {
         private readonly appDbContext _db;

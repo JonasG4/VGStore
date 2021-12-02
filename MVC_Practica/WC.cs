@@ -7,6 +7,9 @@ namespace MVC_Practica
 {
     public static class WC
     {
-        public static string ProductosPath = @"\Imagenes\Productos\";
+        public const string ProductosPath = @"\Imagenes\Productos\";
+        public const string SesionCarrito = "CarritoCompraSession";
+        public const string AdminRole = "Admin";
+        public const string ClienteRole = "Cliente";
     }
 }

@@ -6,43 +6,62 @@
 <div class="container">
     <div class="text-center">
         <button class="btn btn-success filter-button" data-filter="all">Todos</button>
-        @foreach (var obj in Model.Consolas)
-        {
-            <button class="btn btn-outline-primary filter-button" data-filter="@obj.Nombre.Replace(' ','_')">@obj.Nombre</button>
-        }
-    <br />  
-        @foreach (var obj in Model.Categorias)
-        {
-            <button class="btn btn-outline-primary filter-button" data-filter="@obj.Nombre.Replace(' ','_')">@obj.Nombre</button>
-        }
-    <br />
-        @foreach (var obj in Model.Tipo)
-        {
-            <button class="btn btn-outline-primary filter-button" data-filter="@obj.Nombre.Replace(' ','_')">@obj.Nombre</button>
-        }
+        <div class="dropdown d-inline-block">
+            <a class="dropdown-toggle btn btn-outline-primary" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Consolas
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                @foreach (var obj in Model.Consolas)
+                {
+                    <button class="btn btn-block filter-button" data-filter="@obj.Nombre.Replace(' ','_')">@obj.Nombre</button>
+                }
+            </div>
+        </div>
+        <div class="dropdown d-inline-block">
+            <a class="dropdown-toggle btn btn-outline-primary" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Categorias
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                @foreach (var obj in Model.Categorias)
+                {
+                    <button class="btn btn-block filter-button" data-filter="@obj.Nombre.Replace(' ','_')">@obj.Nombre</button>
+                }
+            </div>
+        </div>
+        <div class="dropdown d-inline-block">
+            <a class="dropdown-toggle btn btn-outline-primary" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Tipo
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                @foreach (var obj in Model.Tipo)
+                {
+                    <button class="btn btn-block filter-button" data-filter="@obj.Nombre.Replace(' ','_')">@obj.Nombre</button>
+                }
+            </div>
+        </div>
     </div>
 </div>
-<br />
-<div class="row">
-    @foreach (var prod in Model.Productos)
+        <br />
+        <div class="row">
+            @foreach (var prod in Model.Productos)
             {
                 //Mostrar lista de productos
                 <partial name="_TarjetasProductos" model="prod" />
             }
-</div>
+        </div>
 
-@section Scripts{ 
-    <script>
-        $(document).ready(function () {
-            $(".filter-button").click(function () {
-                var value = $(this).attr('data-filter');
-                if (value == "all") {
-                    $('.filter').show('1000');
-                } else {
-                    $(".filter").not('.' + value).hide('3000');
-                    $(".filter").filter('.' + value).show('3000');
-                }
-            })
-        })
-    </script>
-}
+        @section Scripts{
+            <script>
+                $(document).ready(function () {
+                    $(".filter-button").click(function () {
+                        var value = $(this).attr('data-filter');
+                        if (value == "all") {
+                            $('.filter').show('1000');
+                        } else {
+                            $(".filter").not('.' + value).hide('3000');
+                            $(".filter").filter('.' + value).show('3000');
+                        }
+                    })
+                })
+            </script>
+        }

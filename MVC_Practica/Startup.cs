@@ -6,6 +6,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MVC_Practica.Data;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,7 +28,17 @@ namespace MVC_Practica
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<appDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddIdentity<IdentityUser, IdentityRole>().AddDefaultTokenProviders().AddDefaultUI().AddEntityFrameworkStores<appDbContext>();
             services.AddControllersWithViews();
+            services.AddHttpContextAccessor();
+            services.AddSession(
+               options =>
+               {
+                   options.IdleTimeout = TimeSpan.FromMinutes(10);
+                   options.Cookie.HttpOnly = true;
+                   options.Cookie.IsEssential = true;
+               }
+                );
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -47,10 +59,15 @@ namespace MVC_Practica
 
             app.UseRouting();
 
+            app.UseAuthentication();
+
             app.UseAuthorization();
+
+            app.UseSession(); //No soportan almacenamiento de obj, solamente int y string
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapRazorPages();
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");

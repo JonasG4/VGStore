@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using MVC_Practica.Data;
 using MVC_Practica.Models;
 using System;
@@ -8,6 +9,8 @@ using System.Threading.Tasks;
 
 namespace MVC_Practica.Controllers
 {
+    [Authorize(Roles = WC.AdminRole)]
+
     public class ConsolasController : Controller
     {
         private readonly appDbContext _db;
